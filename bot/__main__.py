@@ -11,8 +11,8 @@ from bot import constants
 
 bot = commands.Bot(
     command_prefix=">",
-    pm_help=False,
-    description=__doc__
+    description=__doc__,
+    activity=discord.Game(name='Reading quibbler.co'),
 )
 bot.client = socketio.AsyncClient()
 
