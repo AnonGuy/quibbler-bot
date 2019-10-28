@@ -1,0 +1,6 @@
+from os import getenv
+
+
+CHANNEL = 638202619814346753
+TOKEN = getenv('QUIBBLER_TOKEN')
+WEBHOOK = getenv('QUIBBLER_WEBHOOK')
