@@ -17,17 +17,14 @@ bot = commands.Bot(
 bot.client = socketio.AsyncClient()
 
 
-def send(name: str, message: str):
-    """
-    Send a message with a particular tag.
-    This must be synchronous due to quibbler.co session limits.
-    """
-    client = socketio.Client()
+async def send(name: str, message: str):
+    """Send a message with a particular tag."""
+    client = socketio.AsyncClient()
     await client.connect(
         f'http://quibbler.co/socket.io/?tag={name}'
     )
-    client.emit('new message', message)
-    client.disconnect()
+    await client.emit('new message', message)
+    await client.disconnect()
 
 
 @bot.client.event
@@ -71,10 +68,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     if message.channel.id == constants.CHANNEL and not message.author.bot:
-        send(
-            author.name,
-            message.content
-        )
+        await send(author.name, message.content)
 
 
 bot.run(constants.TOKEN)
